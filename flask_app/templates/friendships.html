@@ -1,0 +1,61 @@
+{% extends "base.html" %} {% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1 class="h3">Friendships</h1>
+            <div class="table-wrapper">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>User</th>
+                            <th>Friend</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for result_item in results %}
+                        <tr>
+                            <td> {{ result_item.friend1 }}</td>
+                            <td> {{ result_item.friend2 }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col">
+            <h2 class="h3">Add User</h2>
+            <form action="/create_user" method="POST">
+                <div class="form-group">
+                    <label for="first_name">First Name</label>
+                    <input class="form-control" type="text" name="first_name">
+                </div>
+                <div class="form-group">
+                    <label for="last_name">Last Name</label>
+                    <input class="form-control" type="text" name="last_name">
+                </div>
+                <input class="btn btn-primary mt-2" type="submit" value="Add User">
+            </form>
+            <h2 class="h3 mt-5">Create Friendship</h2>
+            <form action="/create_friendship" method="POST">
+                <div class="form-group">
+                    <label for="user1_id">User</label>
+                    <select class="form-control" name="user1_id">
+                    {% for user_item in users %}
+                        <option value="{{user_item.id}}">{{user_item.first_name}} {{user_item.last_name}}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="user2_id">Friend</label>
+                    <select class="form-control" name="user2_id">
+                    {% for user_item in users %}
+                        <option value="{{user_item.id}}">{{user_item.first_name}} {{user_item.last_name}}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+                <input class="btn btn-primary mt-2" type="submit" value="Create">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
